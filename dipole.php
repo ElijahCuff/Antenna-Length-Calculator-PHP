@@ -1,6 +1,6 @@
 <?php
 //
-// Simple Dipole Antenna Length Calculator
+// Dipole Antenna Length Calculator
 //
 // Target Kilohertz
 $khz = null;
