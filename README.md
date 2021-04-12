@@ -13,8 +13,8 @@ https://kyrosmo.ml/dipole.php?khz=1090&vop=0.85&split=2
 //
 // Dipole Antenna Length Calculator
 //
-// Target Kilohertz
-$khz = null;
+// Target megahertz 
+$mhz = null;
 //
 // Material Velocity Factor ( Example, RG6 Coax Cable is around 0.85 ) 
 $vop = null;
@@ -22,10 +22,10 @@ $vop = null;
 // Wavelength Target ( Example, for Half-Wave Antenna - you'd Split ( Divide ) the wavelength by 2 )
 $split = null;
 //
-// Example URL = https://kyrosmo.ml/dipole.php?khz=1090&vop=0.85&split=2
+// Example URL = https://kyrosmo.ml/dipole.php?mhz=1090&vop=0.85&split=2
 //
 
-if(($khz = $_REQUEST['khz']) != null){}
+if(($mhz = $_REQUEST['mhz']) != null){}
 else
 {
 $khz = 1090;
@@ -44,13 +44,13 @@ $split = 1;
 }
 
 
-echo getDipoleLength($khz,$vop, $split);
+echo getDipoleLength($mhz,$vop, $split);
 
 
-function getDipoleLength($khz,$vop, $split)
+function getDipoleLength($mhz,$vop, $split)
 {
   $speedOfLightToC = 299792458/1000000;
-  $waveLength = $speedOfLightToC/$khz*1000;
+  $waveLength = $speedOfLightToC/$mhz*1000;
   $dipoleFullWaveMM = $waveLength*$vop;
 
  $target =  $dipoleFullWaveMM/$split;
