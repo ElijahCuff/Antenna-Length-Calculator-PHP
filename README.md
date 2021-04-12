@@ -1,7 +1,9 @@
 # Antenna Length Calculator
 
 Advanced Dipole Antenna Length Calculator using PHP to perform simple math - designed to combat the issue of material selection on most calculators using material velocity factor ( VOP) 
- 
+   
+// Inspired By this video on YouTube from Hak5 - https://m.youtube.com/watch?v=zMoKs1eiyO4
+
 ```
    
 <?php
