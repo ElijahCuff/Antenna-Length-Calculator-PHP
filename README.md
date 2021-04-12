@@ -5,7 +5,7 @@ Advanced Dipole Antenna Length Calculator using PHP to perform simple math - des
    
 <?php
 //
-// Simple Dipole Antenna Length Calculator
+// Dipole Antenna Length Calculator
 //
 // Target Kilohertz
 $khz = null;
