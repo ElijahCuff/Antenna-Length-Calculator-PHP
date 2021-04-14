@@ -5,8 +5,8 @@
 // Target megahertz 
 $mhz = null;
 //
-// Material Velocity Factor ( Example, RG6 Coax Cable is around 0.85 ) 
-$vop = null;
+// Material Velocity Factor ( Example, RG6 Coax Cable is around 0.85 using 116 mm node spacing for 1090Mhz target frequency ) 
+$vf = null;
 //
 // Wavelength Target ( Example, for Half-Wave Antenna - you'd Split ( Divide ) the wavelength by 2 )
 $split = null;
@@ -20,10 +20,10 @@ else
 $mhz = 1090;
 }
 
-if(($vop = $_REQUEST['vop']) != null){}
+if(($vf = $_REQUEST['vf']) != null){}
 else
 {
-$vop = 1;
+$vf = 1;
 }
 
 if(($split = $_REQUEST['split']) != null){}
@@ -33,18 +33,40 @@ $split = 1;
 }
 
 
-echo getDipoleLength($mhz,$vop, $split);
+echo getDipoleLength($mhz,$vf, $split);
 
+// Get Velocity from Node Spacing millimetres and Mhz Target  
+//echo getVelocityFactor(200, $mhz);
 
-function getDipoleLength($mhz,$vop, $split)
+function getDipoleLength($mhz,$vf, $split)
 {
-  $speedOfLightToC = 299792458/1000000;
-  $waveLength = $speedOfLightToC/$mhz*1000;
-  $dipoleFullWaveMM = $waveLength*$vop;
+  $C = 299792458/1000000;
+  $waveLength = ((($C/$mhz)*1000)*$vf)/$split;
 
- $target =  $dipoleFullWaveMM/$split;
- $rounded = number_format((float)$target, 2, '.', '');
- return $rounded." millimetres";
+$forNo = number_format((float)$waveLength, 2, '.', '');
+$end = "mm";
+if($waveLength >= 100)
+{
+  $forNo = number_format((float)$waveLength/10, 2, '.', '');
+  $end = "cm";
+}
+
+if($waveLength >= 1000)
+{
+  $forNo = number_format((float)$waveLength/1000, 2, '.', '');
+  $end = "m";
+}
+
+ return $forNo." ".$end;
+}
+
+
+function getVelocityFactor($nodeSpacingMM, $FrequencyMhz)
+{
+$speedOfLightToC = 299792458/1000000;
+$spV = $speedOfLightToC*1000/2/$FrequencyMhz;
+$vf =  $nodeSpacingMM/$spV;
+return $vf;
 }
 
 ?>
